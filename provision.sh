@@ -16,6 +16,9 @@ apt-get install zsh wget curl git apache2 mysql-server libapache2-mod-fcgid
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 cat alias >> ~/.zshrc
 
+# Copy SSH dir from mounted C drive
+cp -r /mnt/c/Users/Lenovo/.ssh ~/.ssh
+
 # Apache config
 service apache2 start
 
