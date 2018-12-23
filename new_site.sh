@@ -66,7 +66,8 @@ ln -s /etc/apache2/sites-available/"$SITE_DOMAIN".conf /etc/apache2/sites-enable
 service apache2 restart > /dev/null
 
 # Add hosts entry to Windows...
-echo "127.0.0.1  ${SITE_DOMAIN}" >> /mnt/c/Windows/System32/drivers/etc/hosts
+echo "
+127.0.0.1  ${SITE_DOMAIN}" >> /mnt/c/Windows/System32/drivers/etc/hosts
 
 CHECK=$'\u2713'
 echo ""

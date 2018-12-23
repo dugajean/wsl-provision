@@ -10,7 +10,7 @@ fi
 apt update && sudo apt upgrade
 
 # Install base packages
-apt-get install zsh wget curl git apache2 mysql-server libapache2-mod-fcgid
+apt-get install zsh wget curl git apache2 mysql-server libapache2-mod-fcgid nodejs npm
 
 # Install oh-my-zsh and prep aliases
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -56,3 +56,7 @@ mv ./composer.phar /usr/local/bin/composer
 mv ./new_site.sh /usr/local/bin/ns
 mv ./wsl_start.sh /usr/local/bin/wsl_start
 mv ./wsl_stop.sh /usr/local/bin/wsl_stop
+
+# Install vue-cli
+npm install -g yarn
+yarn global add @vue/cli
