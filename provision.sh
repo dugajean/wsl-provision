@@ -59,4 +59,4 @@ mv ./wsl_stop.sh /usr/local/bin/wsl_stop
 
 # Install vue-cli
 npm install -g yarn
-yarn global add @vue/cli
+npm install -g @vue/cli
