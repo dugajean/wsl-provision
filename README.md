@@ -8,3 +8,4 @@ This is a set of personal scripts used to provision WSL Ubuntu 18.04 to my perso
 - Properly configure MySQL
 - Create another MySQL user
 - Disable MySQL root login
+- Switch oh-my-zsh theme to `ys`
