@@ -18,7 +18,7 @@ This is a set of personal scripts used to provision WSL Ubuntu 18.04 to my perso
   - Turn on/off necessary services
 - Tons of aliases
 
-### To do:
+### To Do
 
 - Install xDebug for all PHP versions
 - Properly configure MySQL
