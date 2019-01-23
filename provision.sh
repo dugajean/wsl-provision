@@ -57,7 +57,9 @@ php -r "unlink('composer-setup.php');"
 mv ./composer.phar /usr/local/bin/composer
 
 # Make scripts available
+mv ./wsl_functions.sh /usr/local/bin/wsl_functions.sh
 mv ./new_site.sh /usr/local/bin/ns
+mv ./switch_php.sh /usr/local/bin/switch_php
 mv ./wsl_start.sh /usr/local/bin/wsl_start
 mv ./wsl_stop.sh /usr/local/bin/wsl_stop
 

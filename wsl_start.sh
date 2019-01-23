@@ -6,6 +6,8 @@ then
     exit $?
 fi
 
+source wsl_functions.sh
+
 echo "Turning on Apache"
 service apache2 start > /dev/null
 
@@ -26,4 +28,4 @@ service cron start > /dev/null
 
 CHECK=$'\u2713'
 echo ""
-echo "[${CHECK}] Done!"
+colored_echo "GREEN" "[${CHECK}] Done!"

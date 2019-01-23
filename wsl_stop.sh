@@ -6,6 +6,8 @@ then
     exit $?
 fi
 
+source wsl_functions.sh
+
 echo "Turning off Apache"
 service apache2 stop > /dev/null
 
@@ -22,5 +24,5 @@ echo "Turning off Redis"
 service redis-server stop > /dev/null
 
 CHECK=$'\u2713'
-echo ""
-echo "[${CHECK}] Done!"
+colored_echo "GREEN" ""
+colored_echo "GREEN" "[${CHECK}] Done!"
