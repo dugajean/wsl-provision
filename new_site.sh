@@ -11,10 +11,10 @@ read -p "Enter the website's relative path (including /public if applicable): " 
 read -p 'Specify the PHP version this site should run on (7.0, 7.1, 7.2, 7.3): ' SITE_PHP_VERSION
 
 # Validate website path
-if [ ! -d /mnt/c/Users/Lenovo/Code/${SITE_PATH} ]
+if [ ! -d /c/Users/Dugi/Code/${SITE_PATH} ]
 then 
     echo ""
-    echo "[!] Requested website path does not exist."
+    echo "[!] Requested website path does not exist." >&2
     exit 1
 fi
 
@@ -32,9 +32,9 @@ cat > /etc/apache2/sites-available/"$SITE_DOMAIN".conf <<EOL
     ServerAdmin webmaster@localhost
     ServerName ${SITE_DOMAIN}
     ServerAlias www.${SITE_DOMAIN}
-    DocumentRoot /mnt/c/Users/Lenovo/Code/${SITE_PATH}
+    DocumentRoot /c/Users/Dugi/Code/${SITE_PATH}
 
-    <Directory /mnt/c/Users/Lenovo/Code/${SITE_PATH}>
+    <Directory /c/Users/Dugi/Code/${SITE_PATH}>
         AllowOverride All
         Require all granted
     </Directory>
