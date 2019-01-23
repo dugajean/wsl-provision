@@ -25,6 +25,8 @@ alias yrh="yarn run hot"
 alias yrp="yarn run production"
 
 alias code="cd ~/code; ls"
+alias plugins="cd public/wp-content/plugins; ls"
+alias themes="cd public/wp-content/themes; ls"
 
 alias gst="git status"
 alias ga="git add ."
@@ -35,22 +37,6 @@ alias gb="git branch"
 
 function artisan() {
     php artisan "$@"
-}
-
-function dusk() {
-    pids=$(pidof /usr/bin/Xvfb)
-
-    if [ ! -n "$pids" ]; then
-        Xvfb :0 -screen 0 1280x960x24 &
-    fi
-
-    php artisan dusk "$@"
-}
-
-function php56() {
-    sudo update-alternatives --set php /usr/bin/php5.6
-    sudo update-alternatives --set php-config /usr/bin/php-config5.6
-    sudo update-alternatives --set phpize /usr/bin/phpize5.6
 }
 
 function php70() {
@@ -69,6 +55,12 @@ function php72() {
     sudo update-alternatives --set php /usr/bin/php7.2
     sudo update-alternatives --set php-config /usr/bin/php-config7.2
     sudo update-alternatives --set phpize /usr/bin/phpize7.2
+}
+
+function php73() {
+    sudo update-alternatives --set php /usr/bin/php7.3
+    sudo update-alternatives --set php-config /usr/bin/php-config7.3
+    sudo update-alternatives --set phpize /usr/bin/phpize7.3
 }
 
 function __has_pv() {

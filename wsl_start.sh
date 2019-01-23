@@ -21,6 +21,9 @@ service mysql start > /dev/null
 echo "Turning on Redis"
 service redis-server start > /dev/null
 
+echo "Turning on Cron"
+service cron start > /dev/null
+
 CHECK=$'\u2713'
 echo ""
 echo "[${CHECK}] Done!"
