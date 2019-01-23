@@ -30,6 +30,8 @@ echo "AcceptFilter http none
 AcceptFilter https none" >> /etc/apache2/apache2.conf
 
 a2enmod rewrite
+a2enmod ssl
+a2enmod headers
 a2enmod actions fcgid alias proxy_fcgi
 service apache2 restart
 
