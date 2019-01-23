@@ -29,6 +29,7 @@ fi
 
 SITE_CONF_FILE=$(cat $SITE_CONF_PATH)
 
+# Perform the replacement
 echo "$SITE_CONF_FILE" | perl -pe "s/php[0-9.]+/php$SITE_PHP_VERSION/g" > $SITE_CONF_PATH
 
 CHECK=$'\u2713'
