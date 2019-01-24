@@ -1,7 +1,6 @@
 #!/bin/bash
 
-if [ $(id -u) != "0" ]
-then
+if [ $(id -u) != "0" ]; then
     sudo "$0" "$@"
     exit $?
 fi
@@ -26,8 +25,8 @@ cp -r /c/Users/Dugi/.ssh ~/.ssh
 # Apache config
 service apache2 start
 
-echo "AcceptFilter http none
-AcceptFilter https none" >> /etc/apache2/apache2.conf
+echo "AcceptFilter http none" >> /etc/apache2/apache2.conf
+echo "AcceptFilter https none" >> /etc/apache2/apache2.conf
 
 a2enmod rewrite
 a2enmod ssl
