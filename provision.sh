@@ -11,13 +11,18 @@ apt update && sudo apt upgrade
 # Install base packages
 apt-get install zsh wget curl git unzip apache2 mysql-server libapache2-mod-fcgid nodejs npm redis
 
-# Install vue-cli
-npm install -g yarn
-npm install -g @vue/cli
-
-# Install oh-my-zsh and prep aliases
+# Install oh-my-zsh and prep some stuff
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 cat ./alias >> ~/.zshrc
+
+# Happens after installing pip3
+# if [ -d "$HOME/.local/bin" ] ; then
+#     PATH="$HOME/.local/bin:$PATH"
+# fi
+
+# Install JS stuff
+npm install -g yarn
+npm install -g @vue/cli
 
 # Copy SSH dir from mounted C drive
 cp -r /c/Users/Dugi/.ssh ~/.ssh

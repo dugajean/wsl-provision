@@ -29,7 +29,7 @@ fi
 echo "Generating SSL certificate..."
 
 openssl req -x509 -nodes -days 5000 -newkey rsa:2048 -keyout /etc/ssl/private/"$SITE_DOMAIN"-selfsigned.key -out /etc/ssl/certs/"$SITE_DOMAIN"-selfsigned.crt \
-    -subj "/C=EU/ST=Kosovo/L=Prishtina/O=Dukagjin Surdulli, Inc./OU=Agency/CN=dukagj.in/emailAddress=me@dukagj.in" > /dev/null 2>&1
+    -subj "/C=EU/ST=Kosovo/L=Prishtina/O=Dukagjin Surdulli, Inc./OU=Agency/CN=${SITE_DOMAIN}/emailAddress=webmaster@${SITE_DOMAIN}" > /dev/null 2>&1
 
 if [ ! -f /etc/apache2/conf-available/ssl-params.conf ]; then
     cat > /etc/apache2/conf-available/ssl-params.conf <<EOL
