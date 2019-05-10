@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ $(id -u) != "0" ]; then
+if [[ $(id -u) != "0" ]]; then
     sudo "$0" "$@"
     exit $?
 fi
@@ -40,6 +40,7 @@ a2enmod actions fcgid alias proxy_fcgi
 service apache2 restart
 
 # MySQL config
+mysql_secure_installation
 usermod -d /var/lib/mysql mysql
 service mysql start
 
@@ -53,13 +54,28 @@ apt-get install php7.2 php7.2-fpm php7.2-curl php7.2-mysql php7.2-xml php7.2-zip
 apt-get install php7.1 php7.1-fpm php7.1-curl php7.1-mysql php7.1-xml php7.1-zip php7.1-gd php7.1-mbstring php7.1-bcmath php7.1-intl php7.1-dev
 apt-get install php7.0 php7.0-fpm php7.0-curl php7.0-mysql php7.0-xml php7.0-zip php7.0-gd php7.0-mbstring php7.0-bcmath php7.0-intl php7.0-dev
 
-service apache2 restart
+a2enconf php7.0-fpm
+a2enconf php7.1-fpm
+a2enconf php7.2-fpm
+a2enconf php7.3-fpm
+
+service apache2 reload
 
 # Install Composer
+EXPECTED_SIGNATURE="$(wget -q -O - https://composer.github.io/installer.sig)"
 php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-php -r "if (hash_file('sha384', 'composer-setup.php') === '93b54496392c062774670ac18b134c3b3a95e5a5e5c8f1a9f115f203b75bf9a129d5daa8ba6a13e2cc8a1da0806388a8') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-php composer-setup.php
-php -r "unlink('composer-setup.php');"
+ACTUAL_SIGNATURE="$(php -r "echo hash_file('sha384', 'composer-setup.php');")"
+
+if [[ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ]]
+then
+    >&2 echo 'ERROR: Invalid installer signature'
+    rm composer-setup.php
+    exit 1
+fi
+
+php composer-setup.php --quiet
+RESULT=$?
+rm composer-setup.php
 mv ./composer.phar /usr/local/bin/composer
 
 # Make scripts available
