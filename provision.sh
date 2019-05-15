@@ -58,7 +58,8 @@ error_reporting = E_ALL
 memory_limit = 256M
 phar.readonly = 0
 xdebug.remote_enable = 1
-xdebug.remote_connect_back = 1"
+xdebug.remote_connect_back = 1
+sendmail_path = /usr/local/bin/mhsendmail"
 
 for VERSION in 7.3 7.2 7.1 7.0
 do
