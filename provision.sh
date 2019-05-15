@@ -14,6 +14,7 @@ apt-get install zsh wget curl git unzip apache2 mysql-server libapache2-mod-fcgi
 # Install oh-my-zsh and prep some stuff
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 cat ./alias >> ~/.zshrc
+chsh -s $(which zsh)
 
 # Happens after installing pip3
 # if [ -d "$HOME/.local/bin" ] ; then
