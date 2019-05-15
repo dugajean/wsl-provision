@@ -49,15 +49,7 @@ add-apt-repository ppa:ondrej/php
 add-apt-repository ppa:ondrej/apache2
 apt-get update
 
-apt-get install php7.3 php7.3-fpm php7.3-curl php7.3-mysql php7.3-xml php7.3-zip php7.3-gd php7.3-mbstring php7.3-bcmath php7.3-intl php7.3-dev 
-apt-get install php7.2 php7.2-fpm php7.2-curl php7.2-mysql php7.2-xml php7.2-zip php7.2-gd php7.2-mbstring php7.2-bcmath php7.2-intl php7.2-dev
-apt-get install php7.1 php7.1-fpm php7.1-curl php7.1-mysql php7.1-xml php7.1-zip php7.1-gd php7.1-mbstring php7.1-bcmath php7.1-intl php7.1-dev
-apt-get install php7.0 php7.0-fpm php7.0-curl php7.0-mysql php7.0-xml php7.0-zip php7.0-gd php7.0-mbstring php7.0-bcmath php7.0-intl php7.0-dev
-
-# Install xdebug
-apt-get install php-xdebug
-
-# Configre PHP settings
+# Install and configure PHP versions
 PHP_OVERRIDES="upload_max_filesize = 2500M
 post_max_size = 2500M
 display_errors = 1
@@ -67,17 +59,25 @@ phar.readonly = 0
 xdebug.remote_enable = 1
 xdebug.remote_connect_back = 1"
 
-echo > /etc/php/7.3/fpm/conf.d/99-overrides.ini "$PHP_OVERRIDES"
-echo > /etc/php/7.2/fpm/conf.d/99-overrides.ini "$PHP_OVERRIDES"
-echo > /etc/php/7.1/fpm/conf.d/99-overrides.ini "$PHP_OVERRIDES"
-echo > /etc/php/7.0/fpm/conf.d/99-overrides.ini "$PHP_OVERRIDES"
+for VERSION in 7.3 7.2 7.1 7.0
+do
+    apt-get install -y php"$VERSION" php"$VERSION"-fpm php"$VERSION"-curl \
+        php"$VERSION"-mysql php"$VERSION"-xml php"$VERSION"-zip php"$VERSION"-gd \
+        php"$VERSION"-mbstring php"$VERSION"-bcmath php"$VERSION"-intl php"$VERSION"-dev
 
-a2enconf php7.0-fpm
-a2enconf php7.1-fpm
-a2enconf php7.2-fpm
-a2enconf php7.3-fpm
+    echo > /etc/php/"$VERSION"/fpm/conf.d/99-overrides.ini "$PHP_OVERRIDES"
+
+    a2enconf php"$VERSION"-fpm
+done
+
+# Install xdebug
+apt-get install -y php-xdebug
 
 service apache2 reload
+service php7.3-fpm reload
+service php7.2-fpm reload
+service php7.1-fpm reload
+service php7.0-fpm reload
 
 # Install Composer
 EXPECTED_SIGNATURE="$(wget -q -O - https://composer.github.io/installer.sig)"
