@@ -54,6 +54,24 @@ apt-get install php7.2 php7.2-fpm php7.2-curl php7.2-mysql php7.2-xml php7.2-zip
 apt-get install php7.1 php7.1-fpm php7.1-curl php7.1-mysql php7.1-xml php7.1-zip php7.1-gd php7.1-mbstring php7.1-bcmath php7.1-intl php7.1-dev
 apt-get install php7.0 php7.0-fpm php7.0-curl php7.0-mysql php7.0-xml php7.0-zip php7.0-gd php7.0-mbstring php7.0-bcmath php7.0-intl php7.0-dev
 
+# Install xdebug
+apt-get install php-xdebug
+
+# Configre PHP settings
+PHP_OVERRIDES="upload_max_filesize = 2500M
+post_max_size = 2500M
+display_errors = 1
+error_reporting = E_ALL
+memory_limit = 256M
+phar.readonly = 0
+xdebug.remote_enable = 1
+xdebug.remote_connect_back = 1"
+
+echo > /etc/php/7.3/fpm/conf.d/99-overrides.ini "$PHP_OVERRIDES"
+echo > /etc/php/7.2/fpm/conf.d/99-overrides.ini "$PHP_OVERRIDES"
+echo > /etc/php/7.1/fpm/conf.d/99-overrides.ini "$PHP_OVERRIDES"
+echo > /etc/php/7.0/fpm/conf.d/99-overrides.ini "$PHP_OVERRIDES"
+
 a2enconf php7.0-fpm
 a2enconf php7.1-fpm
 a2enconf php7.2-fpm
