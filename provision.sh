@@ -50,6 +50,21 @@ add-apt-repository ppa:ondrej/php
 add-apt-repository ppa:ondrej/apache2
 apt-get update
 
+# Prepare the fake email server
+wget https://github.com/smalot/sendmail-smtp/releases/download/v0.2.0/sendmail.phar
+chmod +x sendmail.phar
+mv ./sendmail.phar /usr/local/bin/sendmail.phar
+
+echo > /etc/sendmail-smtp.yml <<EOL
+host: smtp.mailtrap.io
+port: 2525
+auth: true
+username: ~
+password: ~
+debug: 4
+secure: tls
+EOL
+
 # Install and configure PHP versions
 PHP_OVERRIDES="upload_max_filesize = 2500M
 post_max_size = 2500M
@@ -59,7 +74,7 @@ memory_limit = 256M
 phar.readonly = 0
 xdebug.remote_enable = 1
 xdebug.remote_connect_back = 1
-sendmail_path = /usr/local/bin/mhsendmail"
+sendmail_path = /usr/local/bin/sendmail.phar"
 
 for VERSION in 7.3 7.2 7.1 7.0
 do
@@ -68,6 +83,7 @@ do
         php"$VERSION"-mbstring php"$VERSION"-bcmath php"$VERSION"-intl php"$VERSION"-dev
 
     echo > /etc/php/"$VERSION"/fpm/conf.d/99-overrides.ini "$PHP_OVERRIDES"
+    echo > /etc/php/"$VERSION"/cli/conf.d/99-overrides.ini "$PHP_OVERRIDES"
 
     a2enconf php"$VERSION"-fpm
 done
