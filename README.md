@@ -15,12 +15,12 @@ This is a set of personal scripts used to provision WSL Ubuntu 18.04 to my perso
 - Composer
 - Custom scripts to: 
   - Create a new site
+  - Secure a site with local HTTPS
   - Turn on/off necessary services
 - Tons of aliases
 
 ### To Do
 
-- Install xDebug for all PHP versions
 - Properly configure MySQL
 - Create another MySQL user
 - Disable MySQL root login

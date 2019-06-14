@@ -4,10 +4,10 @@ alias ...="cd ../.."
 alias h='cd ~'
 alias c='clear'
 alias art=artisan
+alias seed="artisan db:seed"
 
 alias phpspec='vendor/bin/phpspec'
 alias phpunit='vendor/bin/phpunit'
-alias serve=serve-laravel
 
 alias xoff='sudo phpdismod -s cli xdebug'
 alias xon='sudo phpenmod -s cli xdebug'
@@ -61,37 +61,4 @@ function php73() {
     sudo update-alternatives --set php /usr/bin/php7.3
     sudo update-alternatives --set php-config /usr/bin/php-config7.3
     sudo update-alternatives --set phpize /usr/bin/phpize7.3
-}
-
-function __has_pv() {
-    $(hash pv 2>/dev/null);
-
-    return $?
-}
-
-function __pv_install_message() {
-    if ! __has_pv; then
-        echo $1
-        echo "Install pv with \`sudo apt-get install -y pv\` then run this command again."
-        echo ""
-    fi
-}
-
-function xphp() {
-    (php -m | grep -q xdebug)
-    if [[ $? -eq 0 ]]
-    then
-        XDEBUG_ENABLED=true
-    else
-        XDEBUG_ENABLED=false
-    fi
-
-    if ! $XDEBUG_ENABLED; then xon; fi
-
-    php \
-        -dxdebug.remote_host=192.168.10.1 \
-        -dxdebug.remote_autostart=1 \
-        "$@"
-
-    if ! $XDEBUG_ENABLED; then xoff; fi
 }

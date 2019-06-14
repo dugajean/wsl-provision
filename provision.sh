@@ -66,14 +66,16 @@ secure: tls
 EOL
 
 # Install and configure PHP versions
-PHP_OVERRIDES="upload_max_filesize = 2500M
+echo > /etc/php/99-overrides.ini "upload_max_filesize = 2500M
 post_max_size = 2500M
 display_errors = 1
 error_reporting = E_ALL
 memory_limit = 256M
 phar.readonly = 0
 xdebug.remote_enable = 1
+xdebug.remote_autostart = 1
 xdebug.remote_connect_back = 1
+xdebug.max_nesting_level = 512
 sendmail_path = /usr/local/bin/sendmail.phar"
 
 for VERSION in 7.3 7.2 7.1 7.0
@@ -82,8 +84,8 @@ do
         php"$VERSION"-mysql php"$VERSION"-xml php"$VERSION"-zip php"$VERSION"-gd \
         php"$VERSION"-mbstring php"$VERSION"-bcmath php"$VERSION"-intl php"$VERSION"-dev
 
-    echo > /etc/php/"$VERSION"/fpm/conf.d/99-overrides.ini "$PHP_OVERRIDES"
-    echo > /etc/php/"$VERSION"/cli/conf.d/99-overrides.ini "$PHP_OVERRIDES"
+    ln -s /etc/php/99-overrides.ini /etc/php/"$VERSION"/fpm/conf.d/99-overrides.ini
+    ln -s /etc/php/99-overrides.ini /etc/php/"$VERSION"/cli/conf.d/99-overrides.ini
 
     a2enconf php"$VERSION"-fpm
 done
@@ -117,6 +119,7 @@ mv ./composer.phar /usr/local/bin/composer
 # Make scripts available
 mv ./wsl_functions.sh /usr/local/bin/wsl_functions.sh
 mv ./new_site.sh /usr/local/bin/ns
+mv ./secure_site.sh /usr/local/bin/secure_site
 mv ./switch_php.sh /usr/local/bin/switch_php
 mv ./wsl_start.sh /usr/local/bin/wsl_start
 mv ./wsl_stop.sh /usr/local/bin/wsl_stop
