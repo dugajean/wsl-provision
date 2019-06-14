@@ -9,7 +9,7 @@ fi
 apt update && sudo apt upgrade
 
 # Install base packages
-apt-get install zsh wget curl git unzip apache2 mysql-server libapache2-mod-fcgid nodejs npm redis
+apt-get install -y zsh wget curl git unzip apache2 mysql-server libapache2-mod-fcgid nodejs npm redis
 
 # Install oh-my-zsh and prep some stuff
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
@@ -46,8 +46,8 @@ usermod -d /var/lib/mysql mysql
 service mysql start
 
 # Install PHP versions
-add-apt-repository ppa:ondrej/php
-add-apt-repository ppa:ondrej/apache2
+add-apt-repository ppa:ondrej/php -y
+add-apt-repository ppa:ondrej/apache2 -y
 apt-get update
 
 # Prepare the fake email server
